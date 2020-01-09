@@ -9,9 +9,10 @@ class TransactionList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 200,
       child: ListView.builder(
         itemCount: _transactions.length,
-        itemBuilder: (context, index) {
+        itemBuilder: (ctx, index) {
           return Card(
             child: ListTile(
               leading: CircleAvatar(

@@ -5,19 +5,13 @@ import 'package:personalexpenses/modals/transaction.dart';
 class Chart extends StatelessWidget {
   final List<Transaction> _recentTransactions;
   Chart(this._recentTransactions);
-  double get _totalPrice {
-    double sum = 0.0;
-    _recentTransactions.map((tx) {
-      sum = tx.price;
-    });
-    return sum;
-  }
-
   List<Map<String, Object>> get _groupedTransactionValues {
     return List.generate(7, (index) {
       DateTime weekDay = DateTime.now().subtract(Duration(days: index));
       double daySum = 0.0;
+      double _totalPrice = 0;
       for (Transaction tx in _recentTransactions) {
+        _totalPrice += tx.price;
         if (tx.date.day == weekDay.day &&
             tx.date.month == weekDay.month &&
             tx.date.year == weekDay.year) {
@@ -36,7 +30,7 @@ class Chart extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.symmetric(vertical:10.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: _groupedTransactionValues.map((data) {
@@ -44,13 +38,13 @@ class Chart extends StatelessWidget {
               fit: FlexFit.tight,
               child: Column(
                 children: <Widget>[
+                  FittedBox(child: Text(data['price'].toString())),
                   Container(
                     height: 70,
                     width: 10,
                     margin: EdgeInsets.symmetric(vertical: 10),
                     child: Stack(
                       children: <Widget>[
-                        FittedBox(child: Text(data['price'].toString())),
                         Container(
                           decoration: BoxDecoration(
                             color: Color.fromRGBO(220, 220, 220, 1),
@@ -58,7 +52,7 @@ class Chart extends StatelessWidget {
                           ),
                         ),
                         FractionallySizedBox(
-                          heightFactor: data['ration'],
+                          heightFactor: data['ratio'],
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),

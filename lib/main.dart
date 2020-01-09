@@ -7,7 +7,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: MyHomePage(),
       title: 'Personal Expenses',
       theme: ThemeData(
         primarySwatch: Colors.purple,
@@ -20,6 +19,7 @@ class MyApp extends StatelessWidget {
           button: TextStyle(color: Colors.white)
         )
       ),
+      home: MyHomePage(),
     );
   }
 }

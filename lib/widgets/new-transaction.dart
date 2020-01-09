@@ -20,6 +20,7 @@ class _NewTransactionState extends State<NewTransaction> {
       return;
     }
     widget._addTx(Transaction(title: title, price: price, date: _date, id: DateTime.now().toString()));
+    Navigator.pop(context);
   }
 
   void _selectDate() {
@@ -77,7 +78,7 @@ class _NewTransactionState extends State<NewTransaction> {
             ),
             RaisedButton(
               child: Text(
-                'Add new Trasaction',
+                'Add Trasaction',
                 style:
                     TextStyle(color: Theme.of(context).textTheme.button.color),
               ),

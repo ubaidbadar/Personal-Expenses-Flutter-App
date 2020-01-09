@@ -9,31 +9,51 @@ class TransactionList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 200,
-      child: ListView.builder(
-        itemCount: _transactions.length,
-        itemBuilder: (ctx, index) {
-          return Card(
-            child: ListTile(
-              leading: CircleAvatar(
-                radius: 30,
-                child: FittedBox(
-                    child: Text(_transactions[index].price.toString())),
-              ),
-              title: Text(_transactions[index].title),
-              subtitle: Text(formatDate(
-                  _transactions[index].date, [M, ' ', dd, ', ', yyyy])),
-              trailing: IconButton(
-                icon: Icon(
-                  Icons.delete,
-                  color: Colors.red,
+      height: 300,
+      child: _transactions.isEmpty
+          ? Column(
+              children: <Widget>[
+                Center(
+                  child: Text(
+                    'No! trasaction has been saved',
+                    style: TextStyle(
+                      color: Theme.of(context).primaryColor,
+                      fontSize: 18,
+                    ),
+                  ),
                 ),
-                onPressed: () => _deleteTx(_transactions[index].id),
-              ),
+                SizedBox(height: 10),
+                Image(
+                  image: AssetImage('images/waiting.png'),
+                  fit: BoxFit.cover,
+                  height: 200,
+                )
+              ],
+            )
+          : ListView.builder(
+              itemCount: _transactions.length,
+              itemBuilder: (ctx, index) {
+                return Card(
+                  child: ListTile(
+                    leading: CircleAvatar(
+                      radius: 30,
+                      child: FittedBox(
+                          child: Text(_transactions[index].price.toString())),
+                    ),
+                    title: Text(_transactions[index].title),
+                    subtitle: Text(formatDate(
+                        _transactions[index].date, [M, ' ', dd, ', ', yyyy])),
+                    trailing: IconButton(
+                      icon: Icon(
+                        Icons.delete,
+                        color: Colors.red,
+                      ),
+                      onPressed: () => _deleteTx(_transactions[index].id),
+                    ),
+                  ),
+                );
+              },
             ),
-          );
-        },
-      ),
     );
   }
 }

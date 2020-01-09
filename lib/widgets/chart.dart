@@ -9,7 +9,7 @@ class Chart extends StatelessWidget {
     return List.generate(7, (index) {
       DateTime weekDay = DateTime.now().subtract(Duration(days: index));
       double daySum = 0.0;
-      double _totalPrice = 0;
+      double _totalPrice = 0.0;
       for (Transaction tx in _recentTransactions) {
         _totalPrice += tx.price;
         if (tx.date.day == weekDay.day &&
@@ -17,6 +17,9 @@ class Chart extends StatelessWidget {
             tx.date.year == weekDay.year) {
           daySum += tx.price;
         }
+      }
+      if (_totalPrice == 0) {
+        _totalPrice = 1;
       }
       return {
         "price": daySum,
@@ -30,7 +33,7 @@ class Chart extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical:10.0),
+        padding: const EdgeInsets.symmetric(vertical: 10.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: _groupedTransactionValues.map((data) {

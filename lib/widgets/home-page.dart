@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:personalexpenses/modals/transaction.dart';
 import 'package:personalexpenses/widgets/chart.dart';
-// import 'package:personalexpenses/widgets/chart.dart';
 import 'package:personalexpenses/widgets/new-transaction.dart';
 import 'package:personalexpenses/widgets/transaction-list.dart';
+
+import 'chart.dart';
+import 'transaction-list.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -53,28 +55,10 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Container(
         margin: EdgeInsets.all(10),
         child: Column(
-          children: _transactions.isEmpty
-              ? <Widget>[
-                  Center(
-                    child: Text(
-                      'No! trasaction has been saved',
-                      style: TextStyle(
-                        color: Theme.of(context).primaryColor,
-                        // fontSize: 18,
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 10),
-                  Image(
-                    image: AssetImage('images/waiting.png'),
-                    fit: BoxFit.cover,
-                    height: 200,
-                  )
-                ]
-              : <Widget>[
-                  Chart(_recentTransactions),
-                  TransactionList(_transactions, _deleteTx)
-                ],
+          children: <Widget>[
+            Chart(_recentTransactions),
+            TransactionList(_transactions, _deleteTx)
+          ],
         ),
       ),
       floatingActionButton: FloatingActionButton(

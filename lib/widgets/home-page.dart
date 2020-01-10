@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:personalexpenses/constants/Constatns.dart';
 import 'package:personalexpenses/modals/transaction.dart';
 import 'package:personalexpenses/widgets/chart.dart';
 import 'package:personalexpenses/widgets/new-transaction.dart';
@@ -40,8 +41,10 @@ class _MyHomePageState extends State<MyHomePage> {
     }).toList();
   }
 
+  bool _showChart = true;
   @override
   Widget build(BuildContext context) {
+    final isLandScap = kIsLandScap(context);
     return Scaffold(
       appBar: AppBar(
         title: Text('Personal Expenses'),
@@ -56,8 +59,26 @@ class _MyHomePageState extends State<MyHomePage> {
         margin: EdgeInsets.all(10),
         child: Column(
           children: <Widget>[
-            Chart(_recentTransactions),
-            TransactionList(_transactions, _deleteTx)
+            if (isLandScap)
+              Column(
+                children: <Widget>[
+                  SizedBox(height: 12),
+                  Text(
+                    'Show Chart!',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  Switch(
+                    value: _showChart,
+                    onChanged: (value) => setState(() => _showChart = value),
+                  ),
+                ],
+              ),
+            if (isLandScap)
+              _showChart
+                  ? Expanded(child: Chart(_recentTransactions))
+                  : Expanded(child: TransactionList(_transactions, _deleteTx)),
+            if (!isLandScap) Chart(_recentTransactions),
+            if (!isLandScap) Expanded(child: TransactionList(_transactions, _deleteTx))
           ],
         ),
       ),

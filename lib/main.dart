@@ -11,13 +11,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.purple,
         textTheme: ThemeData.light().textTheme.copyWith(
-          title: TextStyle(
-            fontFamily: 'Quicksand',
-            fontWeight: FontWeight.bold,
-            fontSize: 18,
-          ),
-          button: TextStyle(color: Colors.white)
-        )
+            title: TextStyle(
+              fontFamily: 'Quicksand',
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+            ),
+            button: TextStyle(color: Colors.white)),
       ),
       home: MyHomePage(),
     );
